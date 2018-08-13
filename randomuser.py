@@ -4,7 +4,7 @@ import requests
 def get_randomuser(count):
     """Get users from https://randomuser.me/ in JSON"""
     url = "https://randomuser.me/api/?results=" + str(count)
-    r = requests.get(url=url)
+    r = requests.get(url)
     users = r.json()
     return users
 
