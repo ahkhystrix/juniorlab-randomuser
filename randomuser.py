@@ -54,21 +54,25 @@ class Users(db.Model):
     nat = db.Column(db.String(64))
 
 
-class GetRandomUsersForm(FlaskForm):
-    submit = SubmitField("Get random users")
+class Form(FlaskForm):
+    get = SubmitField("Get random users and save to local database")
+    list = SubmitField("List random users from local database")
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    form = GetRandomUsersForm()
-    if form.validate_on_submit():
+    form = Form()
+    if form.validate_on_submit() and form.get.data:
         result = get_randomuser(100)
         return render_template("result.html", result=result)
-    return render_template("index.html", form=form)
+    elif form.validate_on_submit() and form.list.data:
+        return render_template("list.html", list="Через четыре года здесь будет город - сад (с) Маяковский")
+    else:
+        return render_template("index.html", form=form)
 
 
 def get_randomuser(count):
-    """Get users from https://randomuser.me/ in JSON"""
+    """Get users from https://randomuser.me/ in JSON and save in local database"""
     url = "https://randomuser.me/api/?results=" + str(count)
     r = requests.get(url)
     users = r.json()
@@ -110,7 +114,7 @@ def get_randomuser(count):
                        )
         db.session.add(record)
     db.session.commit()
-    return "Random's users has been loaded in local database"
+    return "Random's users has been loaded to local database"
 
 
 if __name__ == "__main__":
