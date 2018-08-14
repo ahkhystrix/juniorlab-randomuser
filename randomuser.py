@@ -63,16 +63,17 @@ class Form(FlaskForm):
 def index():
     form = Form()
     if form.validate_on_submit() and form.get.data:
-        result = get_randomuser(100)
+        result = get_randomusers(100)
         return render_template("result.html", result=result)
     elif form.validate_on_submit() and form.list.data:
-        return render_template("list.html", list="Через четыре года здесь будет город - сад (с) Маяковский")
+        users = list_randomusers()
+        return render_template("list.html", users=users)
     else:
         return render_template("index.html", form=form)
 
 
-def get_randomuser(count):
-    """Get users from https://randomuser.me/ in JSON and save in local database"""
+def get_randomusers(count):
+    """Get users from https://randomuser.me/ in JSON and save to local database"""
     url = "https://randomuser.me/api/?results=" + str(count)
     r = requests.get(url)
     users = r.json()
@@ -115,6 +116,12 @@ def get_randomuser(count):
         db.session.add(record)
     db.session.commit()
     return "Random's users has been loaded to local database"
+
+
+def list_randomusers():
+    """List users from local database"""
+    users = Users.query.all()
+    return users
 
 
 if __name__ == "__main__":
