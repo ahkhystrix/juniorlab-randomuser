@@ -3,7 +3,7 @@ import os
 import json
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import SubmitField
+from wtforms import SubmitField, StringField
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -59,15 +59,34 @@ class Form(FlaskForm):
     list = SubmitField("List random users from local database")
 
 
+class Filter(FlaskForm):
+    first_filter = StringField()
+    first = SubmitField("First Name Filter")
+    last_filter = StringField()
+    last = SubmitField("Last Name Filter")
+    email_filter = StringField()
+    email = SubmitField("E-Mail Filter")
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     form = Form()
+    filter = Filter()
     if form.validate_on_submit() and form.get.data:
         result = get_randomusers(100)
         return render_template("result.html", result=result)
     elif form.validate_on_submit() and form.list.data:
         users = list_randomusers()
-        return render_template("list.html", users=users)
+        return render_template("list.html", users=users, filter=filter)
+    elif filter.validate_on_submit() and filter.first.data:
+        users = list_randomusers_filtered_first(filter.first_filter.data)
+        return render_template("list.html", users=users, filter=filter)
+    elif filter.validate_on_submit() and filter.last.data:
+        users = list_randomusers_filtered_last(filter.last_filter.data)
+        return render_template("list.html", users=users, filter=filter)
+    elif filter.validate_on_submit() and filter.email.data:
+        users = list_randomusers_filtered_email(filter.email_filter.data)
+        return render_template("list.html", users=users, filter=filter)
     else:
         return render_template("index.html", form=form)
 
@@ -119,8 +138,26 @@ def get_randomusers(count):
 
 
 def list_randomusers():
-    """List users from local database"""
+    """List all users from local database"""
     users = Users.query.all()
+    return users
+
+
+def list_randomusers_filtered_first(first):
+    """List users from local database. Filtered by First"""
+    users = Users.query.filter(Users.name_first.ilike("%" + first + "%"))
+    return users
+
+
+def list_randomusers_filtered_last(last):
+    """List all users from local database. Filtered by Last"""
+    users = Users.query.filter(Users.name_last.ilike("%" + last + "%"))
+    return users
+
+
+def list_randomusers_filtered_email(email):
+    """List all users from local database. Filtered by Email"""
+    users = Users.query.filter(Users.email.ilike("%" + email + "%"))
     return users
 
 

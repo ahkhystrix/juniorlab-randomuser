@@ -1,5 +1,12 @@
 <h1>Random User Generator Demo</h1>
 
+<form method="POST">
+    {{ filter.csrf_token }}
+    {{ filter.first_filter() }} {{ filter.first() }} <BR>
+    {{ filter.last_filter() }} {{ filter.last() }} <BR>
+    {{ filter.email_filter() }} {{ filter.email() }} <BR>
+</form>
+
 <table border="1">
     <tr>
         <th>gender</th>
