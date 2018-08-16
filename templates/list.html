@@ -1,81 +1,113 @@
-<h1>Random User Generator Demo</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Starter Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<form method="POST">
-    {{ filter.csrf_token }}
-    {{ filter.first_filter() }} {{ filter.first() }} <BR>
-    {{ filter.last_filter() }} {{ filter.last() }} <BR>
-    {{ filter.email_filter() }} {{ filter.email() }} <BR>
-</form>
+    <!-- styles -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <style> body {padding-top: 60px; } </style>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-responsive.min.css" rel="stylesheet">
 
-<table border="1">
-    <tr>
-        <th>gender</th>
-        <th>title</th>
-        <th>first</th>
-        <th>last</th>
-        <th>location_street</th>
-        <th>location_city</th>
-        <th>location_state</th>
-        <th>location_postcode</th>
-        <th>location_coordinates_latitude</th>
-        <th>location_coordinates_longitude</th>
-        <th>location_timezone_offset</th>
-        <th>location_timezone_description</th>
-        <th>email</th>
-        <th>login_uuid</th>
-        <th>login_username</th>
-        <th>login_password</th>
-        <th>login_salt</th>
-        <th>login_md5</th>
-        <th>login_sha1</th>
-        <th>login_sha256</th>
-        <th>registered_date</th>
-        <th>registered_age</th>
-        <th>dob_date</th>
-        <th>dob_age</th>
-        <th>phone</th>
-        <th>cell</th>
-        <th>id_name</th>
-        <th>id_value</th>
-        <th>picture_large</th>
-        <th>picture_medium</th>
-        <th>picture_thumbnail</th>
-        <th>nat</th>
-    </tr>
-    {% for item in users %}
-    <tr>
-        <td>{{ item.gender }}</td>
-        <td>{{ item.name_title }}</td>
-        <td>{{ item.name_first }}</td>
-        <td>{{ item.name_last }}</td>
-        <td>{{ item.location_street }}</td>
-        <td>{{ item.location_city }}</td>
-        <td>{{ item.location_state }}</td>
-        <td>{{ item.location_postcode }}</td>
-        <td>{{ item.location_coordinates_latitude }}</td>
-        <td>{{ item.location_coordinates_longitude }}</td>
-        <td>{{ item.location_timezone_offset }}</td>
-        <td>{{ item.location_timezone_description }}</td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.login_uuid }}</td>
-        <td>{{ item.login_username }}</td>
-        <td>{{ item.login_password }}</td>
-        <td>{{ item.login_salt }}</td>
-        <td>{{ item.login_md5 }}</td>
-        <td>{{ item.login_sha1 }}</td>
-        <td>{{ item.login_sha256 }}</td>
-        <td>{{ item.registered_date }}</td>
-        <td>{{ item.registered_age }}</td>
-        <td>{{ item.dob_date }}</td>
-        <td>{{ item.dob_age }}</td>
-        <td>{{ item.phone }}</td>
-        <td>{{ item.cell }}</td>
-        <td>{{ item.id_name }}</td>
-        <td>{{ item.id_value }}</td>
-        <td><img src="{{ item.picture_large }}"></td>
-        <td><img src="{{ item.picture_medium }}"></td>
-        <td><img src="{{ item.picture_thumbnail }}"></td>
-        <td>{{ item.nat }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <!-- scripts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min.js"></script>
+
+  </head>
+  <body>
+
+    <div class="container">
+
+        <a href="https://juniorlab.ru/"><b>eLama Junior Lab</b></a>
+
+        <!--Body content-->
+        <h1>Random User Generator Demo</h1>
+
+        <form method="POST">
+            {{ filter.csrf_token }}
+            {{ filter.first_filter() }} {{ filter.first() }} <BR>
+            {{ filter.last_filter() }} {{ filter.last() }} <BR>
+            {{ filter.email_filter() }} {{ filter.email() }} <BR>
+        </form>
+
+        <table border="1">
+        <tr>
+            <th>gender</th>
+            <th>title</th>
+            <th>first</th>
+            <th>last</th>
+            <th>location_street</th>
+            <th>location_city</th>
+            <th>location_state</th>
+            <th>location_postcode</th>
+            <th>location_coordinates_latitude</th>
+            <th>location_coordinates_longitude</th>
+            <th>location_timezone_offset</th>
+            <th>location_timezone_description</th>
+            <th>email</th>
+            <th>login_uuid</th>
+            <th>login_username</th>
+            <th>login_password</th>
+            <th>login_salt</th>
+            <th>login_md5</th>
+            <th>login_sha1</th>
+            <th>login_sha256</th>
+            <th>registered_date</th>
+            <th>registered_age</th>
+            <th>dob_date</th>
+            <th>dob_age</th>
+            <th>phone</th>
+            <th>cell</th>
+            <th>id_name</th>
+            <th>id_value</th>
+            <th>picture_large</th>
+            <th>picture_medium</th>
+            <th>picture_thumbnail</th>
+            <th>nat</th>
+        </tr>
+        {% for item in users %}
+        <tr>
+            <td>{{ item.gender }}</td>
+            <td>{{ item.name_title }}</td>
+            <td>{{ item.name_first }}</td>
+            <td>{{ item.name_last }}</td>
+            <td>{{ item.location_street }}</td>
+            <td>{{ item.location_city }}</td>
+            <td>{{ item.location_state }}</td>
+            <td>{{ item.location_postcode }}</td>
+            <td>{{ item.location_coordinates_latitude }}</td>
+            <td>{{ item.location_coordinates_longitude }}</td>
+            <td>{{ item.location_timezone_offset }}</td>
+            <td>{{ item.location_timezone_description }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.login_uuid }}</td>
+            <td>{{ item.login_username }}</td>
+            <td>{{ item.login_password }}</td>
+            <td>{{ item.login_salt }}</td>
+            <td>{{ item.login_md5 }}</td>
+            <td>{{ item.login_sha1 }}</td>
+            <td>{{ item.login_sha256 }}</td>
+            <td>{{ item.registered_date }}</td>
+            <td>{{ item.registered_age }}</td>
+            <td>{{ item.dob_date }}</td>
+            <td>{{ item.dob_age }}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.cell }}</td>
+            <td>{{ item.id_name }}</td>
+            <td>{{ item.id_value }}</td>
+            <td><img src="{{ item.picture_large }}"></td>
+            <td><img src="{{ item.picture_medium }}"></td>
+            <td><img src="{{ item.picture_thumbnail }}"></td>
+            <td>{{ item.nat }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
