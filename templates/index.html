@@ -26,10 +26,11 @@
 
         <!--Body content-->
         <h1>Random User Generator Demo</h1>
-        <form method="POST">
+        <p>{{ result }}</p>
+        <form method="POST" class="form-horizontal">
             {{ form.csrf_token }}
-            {{ form.get() }}
-            {{ form.list() }}
+            <div class="btn btn-default">{{ form.get() }}</div><br>
+            <div class="btn btn-default">{{ form.list() }}</div>
         </form>
 
     </div> <!-- /container -->

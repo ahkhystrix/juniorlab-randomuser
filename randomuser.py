@@ -74,7 +74,7 @@ def index():
     filter = Filter()
     if form.validate_on_submit() and form.get.data:
         result = get_randomusers(100)
-        return render_template("result.html", result=result)
+        return render_template("index.html", result=result, form=form)
     elif form.validate_on_submit() and form.list.data:
         users = list_randomusers()
         return render_template("list.html", users=users, filter=filter)
