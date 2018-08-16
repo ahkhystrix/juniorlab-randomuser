@@ -94,7 +94,17 @@ def index():
 def get_randomusers(count):
     """Get users from https://randomuser.me/ in JSON and save to local database"""
     url = "https://randomuser.me/api/?results=" + str(count)
-    r = requests.get(url)
+    try:
+        r = requests.get(url)
+    except requests.exceptions.RequestException as err:
+        return "Something Else: " + str(err)
+    except requests.exceptions.HTTPError as errh:
+        return "Http Error: " + str(errh)
+    except requests.exceptions.ConnectionError as errc:
+        return "Error Connecting: " + str(errc)
+    except requests.exceptions.Timeout as errt:
+        return "Timeout Error: " + str(errt)
+
     users = r.json()
     db.drop_all()
     db.create_all()
